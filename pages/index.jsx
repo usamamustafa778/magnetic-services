@@ -9,7 +9,6 @@ import Services from "@/components/home/Services";
 import Footer from "@/components/common/Footer";
 import Trust from "@/components/home/Trust";
 import Coverage from "@/components/home/Coverage";
-import FooterService from "@/components/common/Footerservice";
 import JsonLd from "@/components/json/JsonLd";
 
 import {
@@ -18,6 +17,7 @@ import {
   getImagePath,
   robotsTxt,
 } from "@/lib/myFun";
+import FooterService from "@/components/common/FooterService";
 
 export default function index({
   logo,

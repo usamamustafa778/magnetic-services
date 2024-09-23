@@ -1,6 +1,6 @@
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
 import CallUs from "./CallUs";
+import React, { useState, useEffect } from "react";
 
 export default function FooterService() {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -10,12 +10,10 @@ export default function FooterService() {
     setDropdownOpen(!isDropdownOpen);
   };
 
-  // This ensures the component is only rendered once the client-side is ready
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Return null if not mounted to avoid server-client mismatch
   if (!mounted) {
     return null;
   }
