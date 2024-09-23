@@ -1,53 +1,53 @@
 import React from "react";
-import FullContainer from "../common/FullContainer";
-import { Dot } from "lucide-react";
+import Image from "next/image";
 import Container from "../common/Container";
+import FullContainer from "../common/FullContainer";
 
-export default function HomeBanner() {
+export default function HomeBanner({ image, data }) {
   return (
-    <>
-      <div className="bg-hero bg-center bg-cover">
-        <div className="   bg-black/30">
-          <div className="grid lg:grid-cols-banner mx-auto max-w-[1200px]   p-2  lg:py-52">
-            {/* Left Section with Text */}
-            <div className="flex items-center justify-center  ">
-              <div>
-                {/* Main Heading */}
-                <h1 className=" text-3xl lg:text-5xl text-white font-bold mb-8  ">
-                  Your Home, Our Priority: Expert Services at Your Doorstep
-                </h1>
-
-                {/* List Items */}
-                <ul className="space-y-4 text-white lg:text-xl">
-                  <li className="flex">
-                    <Dot size={30} className=" mr-2" />
-                    Comprehensive Home Maintenance Solutions
-                  </li>
-                  <li className="flex ">
-                    <Dot size={30} className="mr-2" />
-                    Expert Professionals for your home
-                  </li>
-                  <li className="flex">
-                    <Dot size={30} className="mr-2" />
-                    From Repairs to Renovations
-                  </li>
-                  <li className="flex ">
-                    <Dot size={30} className="mr-2" />
-                    Fast, Reliable Service You Can Trust
-                  </li>
-                  <li className="flex ">
-                    <Dot size={30} className="mr-2" />
-                    Serving Your Community with Pride
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Right Section (Optional) */}
-            <div></div>
-          </div>
-        </div>
-      </div>
-    </>
+    <FullContainer
+      className="min-h-[63vh] overflow-hidden p-10 text-center"
+      style={{
+        backgroundColor: `rgba(0, 0, 0, ${data?.opacity / 100})`,
+        color: data?.textColor || "white",
+      }}
+    >
+      <Image
+        src={image}
+        title={data?.imageTitle || data?.title || "Banner"}
+        alt={data?.altImage || data?.tagline || "No Banner Found"}
+        priority={true}
+        fill={true}
+        loading="eager"
+        className="-z-10 w-full h-full object-cover absolute top-0"
+        objectFit="cover"
+        sizes="(max-width: 320px) 320px,
+               (max-width: 480px) 480px,
+               (max-width: 768px) 768px,
+               (max-width: 1024px) 1024px,
+               (max-width: 1280px) 1280px,
+               (max-width: 1600px) 1600px,
+               (max-width: 1920px) 1920px,
+               (max-width: 2560px) 2560px,
+               (max-width: 3840px) 3840px,
+               100vw"
+      />
+      <Container className="gap-8">
+        <h1
+          style={{ fontSize: data?.titleFontSize || 48 }}
+          className="font-bold capitalize max-w-screen-md"
+        >
+          {data?.title}
+        </h1>
+        {data?.tagline && (
+          <p
+            style={{ fontSize: data?.taglineFontSize || 18 }}
+            className="leading-tight md:leading-none"
+          >
+            {data?.tagline}
+          </p>
+        )}
+      </Container>
+    </FullContainer>
   );
 }

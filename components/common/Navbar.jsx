@@ -41,7 +41,6 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Navbar Links (Hidden on small screens, visible on large screens) */}
         <div className="hidden md:flex justify-center items-center gap-6 lg:gap-10 text-lg">
           <Link title="Home" href="/" className={getLinkClass("/")}>
             Home
@@ -65,7 +64,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Mobile Menu (Visible only when toggled on small screens) */}
+        {/* Phone Screen NavMenu */}
         {isOpen && (
           <div className="flex flex-col items-center gap-4 text-lg md:hidden ">
             <Link href="/" className={getLinkClass("/")} onClick={toggleMenu}>

@@ -71,8 +71,20 @@ export default function index({
         />
       </Head>
 
-      <Navbar />
-      <HomeBanner />
+      <Navbar
+        key={index}
+        logo={logo}
+        imagePath={imagePath}
+        blog_list={blog_list}
+        categories={categories}
+        nav_type={nav_type}
+        contact_details={contact_details}
+      />
+      <HomeBanner
+        key={index}
+        data={banner?.value}
+        image={`${imagePath}/${banner?.file_name}`}
+      />
       <Industries />
       <Services />
       <Trust />
