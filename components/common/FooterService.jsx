@@ -29,8 +29,9 @@ export default function FooterService() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 text-center lg:text-left">
           <div>
             <p>
-              Get the location Near you right to your phone. Fast, easy, and
-              commitment-free.
+              {
+                " Get the location Near you right to your phone. Fast, easy, and commitment-free."
+              }
             </p>
           </div>
           <div>
@@ -83,11 +84,11 @@ export default function FooterService() {
               </div>
             </div>
             <p className="text-sm mt-4">
-              By clicking on the "Get a Pro" button above, you consent,
+              By clicking on the Get a Pro button above, you consent,
               acknowledge, and agree to the following: - Our Acceptable Use
               Policy, Privacy Policy and to receive important notices and other
               communications electronically. - We take your privacy seriously.
-              You are providing express "written" consent to share your
+              You are providing express written consent to share your
               information with us and authorize us to call you via telephone,
               mobile device (including SMS and MMS - charges may apply) and/or
               email, even if your telephone number is currently listed on any

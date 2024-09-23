@@ -12,19 +12,37 @@ import Coverage from "@/components/home/Coverage";
 import FooterService from "@/components/common/Footerservice";
 import JsonLd from "@/components/json/JsonLd";
 
-export default function index() {
+import {
+  callBackendApi,
+  getDomain,
+  getImagePath,
+  robotsTxt,
+} from "@/lib/myFun";
+
+export default function index({
+  logo,
+  blog_list,
+  imagePath,
+  categories,
+  domain,
+  meta,
+  about_me,
+  contact_details,
+  banner,
+  favicon,
+  layout,
+  tag_list,
+  nav_type,
+}) {
   return (
     <>
       <Head>
         <meta charSet="UTF-8" />
-        <title>"Magnetic Services"</title>
-        <meta
-          name="description"
-          content="Contact us and Take our World Wide services"
-        />
-        <link rel="author" href="https://www.mqagneticservices.com" />
-        <link rel="publisher" href="https://www.mqagneticservices.com" />
-        <link rel="canonical" href="https://www.mqagneticservices.com" />
+        <title>{meta?.title}</title>
+        <meta name="description" content={meta?.description} />
+        <link rel="author" href={`https://www.${domain}`} />
+        <link rel="publisher" href={`https://www.${domain}`} />
+        <link rel="canonical" href={`https://www.${domain}`} />
         <meta name="theme-color" content="#008DE5" />
         <link rel="manifest" href="/manifest.json" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -34,7 +52,25 @@ export default function index() {
           name="google-site-verification"
           content="zbriSQArMtpCR3s5simGqO5aZTDqEZZi9qwinSrsRPk"
         />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href={`${process.env.NEXT_PUBLIC_SITE_MANAGER}/images/${imagePath}/${favicon}`}
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href={`${process.env.NEXT_PUBLIC_SITE_MANAGER}/images/${imagePath}/${favicon}`}
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href={`${process.env.NEXT_PUBLIC_SITE_MANAGER}/images/${imagePath}/${favicon}`}
+        />
       </Head>
+
       <Navbar />
       <HomeBanner />
       <Industries />
@@ -133,4 +169,46 @@ export default function index() {
       />
     </>
   );
+}
+
+export async function getServerSideProps({ req }) {
+  const domain = getDomain(req?.headers?.host);
+  const meta = await callBackendApi({ domain, type: "meta_home" });
+  const logo = await callBackendApi({ domain, type: "logo" });
+  const favicon = await callBackendApi({ domain, type: "favicon" });
+  const blog_list = await callBackendApi({ domain, type: "blog_list" });
+  const categories = await callBackendApi({ domain, type: "categories" });
+  const contact_details = await callBackendApi({
+    domain,
+    type: "contact_details",
+  });
+  const project_id = logo?.data[0]?.project_id || null;
+  const about_me = await callBackendApi({ domain, type: "about_me" });
+  const banner = await callBackendApi({ domain, type: "banner" });
+  const layout = await callBackendApi({ domain, type: "layout" });
+  const tag_list = await callBackendApi({ domain, type: "tag_list" });
+  const nav_type = await callBackendApi({ domain, type: "nav_type" });
+  const all_data = await callBackendApi({ domain, type: "" });
+  const imagePath = await getImagePath(project_id, domain);
+
+  robotsTxt({ domain });
+
+  return {
+    props: {
+      domain,
+      imagePath,
+      meta: meta?.data[0]?.value || null,
+      favicon: favicon?.data[0]?.file_name || null,
+      logo: logo?.data[0] || null,
+      layout: layout?.data[0]?.value || null,
+      blog_list: blog_list?.data[0]?.value || [],
+      categories: categories?.data[0]?.value || null,
+      about_me: about_me?.data[0] || null,
+      banner: banner?.data[0] || null,
+      contact_details: contact_details?.data[0]?.value || null,
+      nav_type: nav_type?.data[0]?.value || {},
+      tag_list: tag_list?.data[0]?.value || null,
+      all_data,
+    },
+  };
 }

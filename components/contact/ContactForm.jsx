@@ -105,7 +105,7 @@ export default function ContactForm() {
               </div>
               <div className=" lg:ml-44 text-sm my-4 lg:my-0 ">
                 <p>
-                  By clicking on the "Submit" button above, you consent,
+                  By clicking on the Submit button above, you consent,
                   acknowledge, and agree to the following:
                 </p>
                 <p>
@@ -114,7 +114,7 @@ export default function ContactForm() {
                 </p>
                 <p>
                   - We take your privacy seriously. You are providing express
-                  "written" consent to share your information with us and
+                  written consent to share your information with us and
                   authorize us to call you via telephone, mobile device
                   (including SMS and MMS - charges may apply) and/or email, even
                   if your telephone number is currently listed on any internal,

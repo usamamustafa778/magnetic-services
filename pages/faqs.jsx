@@ -13,7 +13,7 @@ export default function faqs() {
     <>
       <Head>
         <meta charSet="UTF-8" />
-        <title>"Magnetic Services Faqs"</title>
+        <title>Magnetic Services | Faqs</title>
         <meta
           name="description"
           content="Contact us and Take our World Wide services"

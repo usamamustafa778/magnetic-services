@@ -19,32 +19,36 @@ export default function Footer() {
           <div>
             <ul className="space-y-2">
               <li>
-                <a title="Home" href="/" className={getLinkClass("/")}>
+                <Link title="Home" href="/" className={getLinkClass("/")}>
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   title="About"
                   href="/about"
                   className={getLinkClass("/about")}
                 >
                   About
-                </a>
+                </Link>
               </li>
               <li>
-                <a title="Faqs" href="/faqs" className={getLinkClass("/faqs")}>
+                <Link
+                  title="Faqs"
+                  href="/faqs"
+                  className={getLinkClass("/faqs")}
+                >
                   FAQs
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   title="Contact Us"
                   href="/contact-us"
                   className={getLinkClass("/contact-us")}
                 >
                   Contact Us
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

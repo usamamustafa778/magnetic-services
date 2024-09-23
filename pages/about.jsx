@@ -13,7 +13,7 @@ export default function about() {
     <>
       <Head>
         <meta charSet="UTF-8" />
-        <title>"Magnetic Services About Us"</title>
+        <title>Magnetic Services | About Us</title>
         <meta
           name="description"
           content="Contact us and Take our World Wide services"
