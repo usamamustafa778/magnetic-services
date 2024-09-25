@@ -130,11 +130,11 @@ export default function Industries() {
                   >
                     <Image
                       src={industry.imgSrc}
-                      title={industry.title || "Background Image" }
+                      title={industry.title || "Background Image"}
                       height="60"
                       width="60"
                       alt={industry.title || "Image"}
-                     />
+                    />
                     <h3 className="text-lg font-bold mt-2">{industry.title}</h3>
                   </div>
                 ))}
@@ -154,7 +154,7 @@ export default function Industries() {
                     title={project.title || "Background Image"}
                     height="60"
                     width="60"
-                    alt={project.title || "IMAGE" }
+                    alt={project.title || "IMAGE"}
                   />
                   <h3 className="text-lg font-bold">{project.title}</h3>
                 </div>

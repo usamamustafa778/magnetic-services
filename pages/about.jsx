@@ -3,12 +3,26 @@ import Navbar from "@/components/common/Navbar";
 import Head from "next/head";
 import GoogleTagManager from "@/lib/GoogleTagManager";
 import Banner from "@/components/common/Banner";
-import Getknow from "@/components/about/Getknow";
 import Help from "@/components/about/Help";
 import Footer from "@/components/common/Footer";
 import JsonLd from "@/components/json/JsonLd";
+import FullContainer from "@/components/common/FullContainer";
+import Container from "@/components/common/Container";
+import { callBackendApi, getDomain, getImagePath } from "@/lib/myFun";
+import MarkdownIt from "markdown-it";
+import Image from "next/image";
 
-export default function about() {
+export default function about({
+   about_me,
+  logo,
+  imagePath,
+  blog_list,
+  category,
+   categories
+
+  }) {
+  const markdownIt = new MarkdownIt();
+  const content = markdownIt?.render(about_me || "");
   return (
     <>
       <Head>
@@ -31,11 +45,36 @@ export default function about() {
           content="zbriSQArMtpCR3s5simGqO5aZTDqEZZi9qwinSrsRPk"
         />
       </Head>
-      <Navbar />
+      <Navbar
+        logo={logo}
+        imagePath={imagePath}
+       
+      />
       <Banner title={"About Us"} />
-      <Getknow />
+      <FullContainer>
+        <Container>
+          <div
+            className="prose max-w-full my-14 text-center"
+            dangerouslySetInnerHTML={{ __html: content }}
+          />
+          <div className="mb-4">
+            <Image
+              src="/img/about-img2.jpg"
+              title="Background Image"
+              height="600"
+              width="1200"
+              alt="Image"
+            />
+          </div>
+        </Container>
+      </FullContainer>
       <Help />
-      <Footer />
+      <Footer 
+       imagePath={imagePath}
+       blog_list={blog_list}
+       categories={categories}
+       category={category}
+      />
 
       <JsonLd
         data={{
@@ -127,4 +166,27 @@ export default function about() {
       />
     </>
   );
+}
+
+export async function getServerSideProps({ req, query }) {
+  const domain = getDomain(req?.headers?.host);
+  const logo = await callBackendApi({ domain, type: "logo" });
+
+  const project_id = logo?.data[0]?.project_id || null;
+
+  const imagePath = await getImagePath(project_id, domain);
+
+  const about_me = await callBackendApi({ domain, query, type: "about_me" });
+  const categories = await callBackendApi({ domain, type: "categories" });
+
+  console.log("Fetched about_me:", about_me);
+  return {
+    props: {
+      domain,
+      imagePath,
+      about_me: about_me?.data[0]?.value || "",
+      logo: logo?.data[0] || null,
+      categories: categories?.data[0]?.value || null,
+    },
+  };
 }

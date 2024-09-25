@@ -5,10 +5,17 @@ import GoogleTagManager from "@/lib/GoogleTagManager";
 import Banner from "@/components/common/Banner";
 import Footer from "@/components/common/Footer";
 import Faqs from "@/components/common/Faqs";
+import { callBackendApi, getDomain, getImagePath } from "@/lib/myFun";
 import ImageSection from "@/components/faqs/ImageSection";
 import JsonLd from "@/components/json/JsonLd";
 
-export default function faqs() {
+export default function faqs({
+   logo,
+  imagePath,
+   categories,
+   category,
+   blog_list
+}) {
   return (
     <>
       <Head>
@@ -32,11 +39,17 @@ export default function faqs() {
         />
       </Head>
 
-      <Navbar />
+      <Navbar logo={logo} imagePath={imagePath} />
+
       <Banner title={"Frequently Asked Questions"} />
       <Faqs />
       <ImageSection />
-      <Footer />
+      <Footer
+       imagePath={imagePath}
+       blog_list={blog_list}
+       categories={categories}
+       category={category}
+      />
 
       <JsonLd
         data={{
@@ -145,4 +158,24 @@ export default function faqs() {
       />
     </>
   );
+}
+
+export async function getServerSideProps({ req, query }) {
+  const domain = getDomain(req?.headers?.host);
+  const logo = await callBackendApi({ domain, type: "logo" });
+
+  const project_id = logo?.data[0]?.project_id || null;
+
+  const imagePath = await getImagePath(project_id, domain);
+  const categories = await callBackendApi({ domain, type: "categories" });
+
+  return {
+    props: {
+      domain,
+      imagePath,
+      logo: logo?.data[0] || null,
+      categories: categories?.data[0]?.value || null,
+ 
+    },
+  };
 }

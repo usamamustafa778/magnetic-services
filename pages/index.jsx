@@ -19,19 +19,17 @@ import {
 } from "@/lib/myFun";
 import FooterService from "@/components/common/FooterService";
 
-export default function index({
+export default function Home({
   logo,
   blog_list,
   imagePath,
   categories,
+  category,
   domain,
   meta,
-  about_me,
   contact_details,
   banner,
   favicon,
-  layout,
-  tag_list,
   nav_type,
 }) {
   return (
@@ -72,7 +70,6 @@ export default function index({
       </Head>
 
       <Navbar
-        key={index}
         logo={logo}
         imagePath={imagePath}
         blog_list={blog_list}
@@ -81,7 +78,6 @@ export default function index({
         contact_details={contact_details}
       />
       <HomeBanner
-        key={index}
         data={banner?.value}
         image={`${imagePath}/${banner?.file_name}`}
       />
@@ -90,7 +86,12 @@ export default function index({
       <Trust />
       <Coverage />
       <FooterService />
-      <Footer />
+      <Footer 
+      imagePath={imagePath}
+      blog_list={blog_list}
+      categories={categories}
+      category={category}
+      />
 
       <JsonLd
         data={{

@@ -3,10 +3,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { ArrowRight, Menu } from "lucide-react";
-import FullContainer from "./FullContainer";
-import Container from "./Container";
+import FullContainer from "../FullContainer";
+import Container from "../Container";
+import Logo from "./Logo";
 
-export default function Navbar() {
+export default function Navbar({ logo, imagePath }) {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
 
@@ -20,20 +21,12 @@ export default function Navbar() {
       : "text-black hover:text-white";
   };
 
+  console.log("Logo", logo);
+
   return (
-    <FullContainer className="bg-nav">
-      <Container className="md:flex-row md:justify-between">
-        <div>
-          <Link title="Logo" href="/">
-            <Image
-              src="/img/home/logo2-1.png"
-              title="Logo"
-              height="250"
-              width="250"
-              alt="Logo"
-            />
-          </Link>
-        </div>
+    <FullContainer className="bg-nav sticky top-0 z-20 ">
+      <Container className="md:flex-row md:justify-between  ">
+        <Logo logo={logo} imagePath={imagePath} />
 
         <div className="md:hidden flex items-center">
           <button onClick={toggleMenu}>
@@ -41,7 +34,7 @@ export default function Navbar() {
           </button>
         </div>
 
-        <div className="hidden md:flex justify-center items-center gap-6 lg:gap-10 text-lg">
+        <div className="hidden md:flex justify-center items-center gap-6 text-lg">
           <Link title="Home" href="/" className={getLinkClass("/")}>
             Home
           </Link>
@@ -61,6 +54,14 @@ export default function Navbar() {
             className={getLinkClass("/contact-us")}
           >
             Contact Us
+          </Link>
+
+          <Link
+            title=""
+            href="/our-blogs"
+            className={getLinkClass("/blogs")}
+          >
+            Blog
           </Link>
         </div>
 

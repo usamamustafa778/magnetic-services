@@ -8,8 +8,17 @@ import Service from "@/components/contact/Service";
 import ContactForm from "@/components/contact/ContactForm";
 import CallUs from "@/components/common/CallUs";
 import JsonLd from "@/components/json/JsonLd";
+import { callBackendApi, getDomain, getImagePath } from "@/lib/myFun";
 
-export default function contactUs() {
+
+export default function contactUs({
+   logo,
+   imagePath,
+   blog_list,
+   categories,
+   category
+
+  }) {
   return (
     <>
       <Head>
@@ -32,13 +41,18 @@ export default function contactUs() {
           content="zbriSQArMtpCR3s5simGqO5aZTDqEZZi9qwinSrsRPk"
         />
       </Head>
-
-      <Navbar />
+      <Navbar logo={logo} imagePath={imagePath} />
       <Banner title={"Contact Us"} />
       <Service />
       <ContactForm />
       <CallUs />
-      <Footer />
+      <Footer
+        
+        imagePath={imagePath}
+        categories={categories}
+        category={category}
+
+      />
 
       <JsonLd
         data={{
@@ -121,4 +135,27 @@ export default function contactUs() {
       />
     </>
   );
+}
+
+export async function getServerSideProps({ req, query }) {
+  const domain = getDomain(req?.headers?.host);
+  const logo = await callBackendApi({ domain, type: "logo" });
+
+  const project_id = logo?.data[0]?.project_id || null;
+
+  const imagePath = await getImagePath(project_id, domain);
+
+  const about_me = await callBackendApi({ domain, query, type: "about_me" });
+  const categories = await callBackendApi({ domain, type: "categories" });
+
+  console.log("Fetched about_me:", about_me);
+  return {
+    props: {
+      domain,
+      imagePath,
+      about_me: about_me?.data[0]?.value || "",
+      logo: logo?.data[0] || null,
+      categories: categories?.data[0]?.value || null,
+    },
+  };
 }

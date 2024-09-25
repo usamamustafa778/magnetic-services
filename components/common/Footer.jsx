@@ -2,8 +2,8 @@ import React from "react";
 import Image from "next/image"; // Assuming you're using Next.js
 import Link from "next/link";
 import { useRouter } from "next/router";
-
-export default function Footer() {
+import { cn } from "@/lib/utils";
+export default function Footer({ categories, category }) {
   const router = useRouter();
 
   const getLinkClass = (path) => {
@@ -14,9 +14,26 @@ export default function Footer() {
     <footer className="bg-white text-black py-10">
       <div className="container mx-auto px-4">
         {/* Grid layout with three columns */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 text-center lg:text-left">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 text-center lg:text-left">
           {/* First Column: Navigation */}
+
+          <div className="flex justify-center lg:justify-start items-center">
+            <Link title="Logo" href="/">
+              <Image
+                title="Logo"
+                src="/img/home/logo2-1.png"
+                height="200"
+                width="400"
+                alt="Company Logo"
+              />
+            </Link>
+          </div>
+
+          {/* Second Column: Policies */}
+
           <div>
+          <p className="font-bold mb-5">Quick Links</p>
+
             <ul className="space-y-2">
               <li>
                 <Link title="Home" href="/" className={getLinkClass("/")}>
@@ -50,44 +67,63 @@ export default function Footer() {
                   Contact Us
                 </Link>
               </li>
-            </ul>
-          </div>
 
-          {/* Second Column: Policies */}
-          <div>
-            <ul className="space-y-2">
               <li>
-                <a
+                <Link
                   title="Privacy policy"
-                  href="#"
-                  className={getLinkClass("/privacypolicy")}
+                  href="privacy-policy"
+                  className={getLinkClass("/privacy-policy")}
                 >
-                  Privacy Policy
-                </a>
+                  Privacy & Policy
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   title="Term And Condition"
-                  href="#"
-                  className={getLinkClass("/term&condition")}
+                  href="/terms-and-conditions"
+                  className={getLinkClass("/terms-and-conditions")}
                 >
-                  Terms and Conditions
-                </a>
+                  Terms & Conditions
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  title="Sitemap"
+                  href="/sitemap.xml"
+                  legacyBehavior
+                  className={`uppercase text-sm mb-2 hover:border-b w-fit transition-all ${getLinkClass(
+                    "/terms-and-conditions"
+                  )}`}
+                >
+                  Sitemap
+                </Link>
               </li>
             </ul>
           </div>
 
           {/* Third Column: Logo */}
-          <div className="flex justify-center lg:justify-start items-center">
-            <Link title="Logo" href="/">
-              <Image
-                title="Logo"
-                src="/img/home/logo2-1.png"
-                height="200"
-                width="400"
-                alt="Company Logo"
-              />
-            </Link>
+          <div className="flex flex-col">
+            <p className="font-bold mb-5">Categories</p>
+            {categories?.map((item, index) => {
+              const categoryPath = `/${item
+                ?.toLowerCase()
+                ?.replaceAll(" ", "-")}`;
+              return (
+                <Link
+                  key={index}
+                  title={item || "Article Link" || ""}
+                  href={categoryPath}
+                  className={cn(
+                    "uppercase text-sm mb-2 hover:text-nav w-fit transition-all",
+                    category === item && "border-b-2 border-purple-500",
+                    getLinkClass(categoryPath) // Use dynamic category path here
+                  )}
+                >
+                  {item}
+                </Link>
+              );
+            })}
           </div>
         </div>
 

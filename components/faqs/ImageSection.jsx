@@ -61,8 +61,8 @@ export default function ImageSection() {
               title="Background Image"
               src={image.src}
               alt={image.alt}
-              height={100}
-              width={100}
+              height={500}
+              width={500}
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
@@ -89,8 +89,8 @@ export default function ImageSection() {
                 src={images[currentImageIndex].src}
                 alt={images[currentImageIndex].alt}
                 className="max-h-screen"
-                height={100}
-                width={100}
+                height={1000}
+                width={1000}
               />
               <div className="absolute top-0 left-0 w-full h-full flex items-center justify-between">
                 <button
