@@ -4,9 +4,17 @@ import Container from "../common/Container";
 import FullContainer from "../common/FullContainer";
 
 export default function HomeBanner({ image, data }) {
+  const list = [
+    "Comprehensive Home Maintenance Solutions",
+    "Expert Professionals for your home",
+    "From Repairs to Renovations",
+    "Fast, Reliable Service You Can Trust",
+    "Serving Your Community with Pride",
+  ];
+
   return (
     <FullContainer
-      className="min-h-[63vh] overflow-hidden p-10 text-center"
+      className="py-40 overflow-hidden px-10"
       style={{
         backgroundColor: `rgba(0, 0, 0, ${data?.opacity / 100})`,
         color: data?.textColor || "white",
@@ -32,21 +40,24 @@ export default function HomeBanner({ image, data }) {
                (max-width: 3840px) 3840px,
                100vw"
       />
-      <Container className="gap-8">
-        <h1
-          style={{ fontSize: data?.titleFontSize || 48 }}
-          className="font-bold capitalize max-w-screen-md"
-        >
-          {data?.title}
-        </h1>
-        {data?.tagline && (
-          <p
-            style={{ fontSize: data?.taglineFontSize || 18 }}
-            className="leading-tight md:leading-none"
+      <Container>
+        <div className="w-full">
+          <h1
+            style={{ fontSize: data?.titleFontSize || 48 }}
+            className="font-bold capitalize max-w-screen-md"
           >
-            {data?.tagline}
-          </p>
-        )}
+            {data?.title}
+          </h1>
+          <div className="h-1 w-32 bg-nav"></div>
+
+          <ul className="ml-5 mt-9">
+            {list?.map((item, index) => (
+              <li key={index} className="list list-disc text-lg">
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
       </Container>
     </FullContainer>
   );

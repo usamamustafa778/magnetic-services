@@ -31,8 +31,9 @@ export default function OurBlogs({
   tag_list,
   layout,
 }) {
+  console.log("layout", about_me);
+
   const page = layout?.find((page) => page.page === "our blog");
-  console.log("layout",layout)
   const renderBlogList = () => {
     return (
       <div className="grid grid-cols-2 gap-5 md:gap-10">

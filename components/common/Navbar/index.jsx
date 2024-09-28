@@ -24,8 +24,8 @@ export default function Navbar({ logo, imagePath }) {
   console.log("Logo", logo);
 
   return (
-    <FullContainer className="bg-nav sticky top-0 z-20 ">
-      <Container className="md:flex-row md:justify-between  ">
+    <FullContainer className="bg-nav sticky top-0 z-20 py-3">
+      <Container className="md:flex-row md:justify-between">
         <Logo logo={logo} imagePath={imagePath} />
 
         <div className="md:hidden flex items-center">
@@ -56,11 +56,7 @@ export default function Navbar({ logo, imagePath }) {
             Contact Us
           </Link>
 
-          <Link
-            title=""
-            href="/our-blogs"
-            className={getLinkClass("/blogs")}
-          >
+          <Link title="" href="/our-blogs" className={getLinkClass("/blogs")}>
             Blog
           </Link>
         </div>

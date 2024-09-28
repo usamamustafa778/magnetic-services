@@ -24,39 +24,33 @@ const servicesData = [
 
 export default function Services() {
   return (
-    <>
-      <FullContainer className="bg-bg">
-        <Container>
-          <h2 className="text-4xl lg:text-5xl font-bold py-14 lg:py-20">
-            Comprehensive Home Services for Every Need
-          </h2>
-
-          {servicesData.map((service, index) => (
-            <div className="grid lg:grid-cols-2 gap-16 lg:p-10 mt-10" key={index}>
-              {/* Left Section with Text */}
-              <div className="flex items-center justify-center">
-                <div>
-                  <h2 className="text-3xl lg:text-5xl font-bold mb-6 lg:mb-20">
-                    {service.heading}
-                  </h2>
-                  <p className="text-gray-600 text-lg lg:mr-10">{service.text}</p>
-                </div>
-              </div>
-
-              {/* Right Section with Image */}
-              <div>
-                <Image
-                  src={service.image}
-                  title="Background Image"
-                  height={600}
-                  width={600}
-                  alt="Service Image"
-                />
-              </div>
+    <FullContainer className="bg-gray-100 py-20">
+      <Container className="gap-14">
+        {servicesData.map((service, index) => (
+          <div
+            className={`flex gap-16 ${
+              index % 2 === 1 ? "flex-row-reverse" : "flex-row"
+            }`}
+            key={index}
+          >
+            <div className="flex-1 flex flex-col justify-center">
+              <h2 className="text-3xl lg:text-5xl font-bold">
+                {service.heading}
+              </h2>
+              <p className="text-gray-600 mt-3">{service.text}</p>
             </div>
-          ))}
-        </Container>
-      </FullContainer>
-    </>
+
+            <Image
+              src={service.image}
+              title="Background Image"
+              height={600}
+              width={600}
+              className="flex-1 h-[400px] rounded-lg object-cover"
+              alt="Service Image"
+            />
+          </div>
+        ))}
+      </Container>
+    </FullContainer>
   );
 }

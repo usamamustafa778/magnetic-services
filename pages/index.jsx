@@ -86,11 +86,11 @@ export default function Home({
       <Trust />
       <Coverage />
       <FooterService />
-      <Footer 
-      imagePath={imagePath}
-      blog_list={blog_list}
-      categories={categories}
-      category={category}
+      <Footer
+        imagePath={imagePath}
+        blog_list={blog_list}
+        categories={categories}
+        category={category}
       />
 
       <JsonLd
