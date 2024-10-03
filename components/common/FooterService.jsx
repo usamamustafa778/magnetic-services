@@ -37,7 +37,6 @@ const InputField = ({ label, placeholder }) => (
 
 const FooterService = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-
   const toggleDropdown = () => setDropdownOpen(!isDropdownOpen);
 
   return (
@@ -47,7 +46,6 @@ const FooterService = () => {
           Find a Magnetic Services Location
         </h2>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 text-center lg:text-left">
-          {/* Information Text Block */}
           <div>
             <p>
               Get the location near you right to your phone. Fast, easy, and
@@ -55,7 +53,6 @@ const FooterService = () => {
             </p>
           </div>
 
-          {/* Service Selection Block */}
           <div>
             <h3 className="text-lg font-semibold mb-4">Services Needed</h3>
             <ServiceDropdown

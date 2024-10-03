@@ -4,7 +4,6 @@ import Head from "next/head";
 import Navbar from "@/components/common/Navbar";
 import GoogleTagManager from "@/lib/GoogleTagManager";
 import HomeBanner from "@/components/home/HomeBanner";
-import Industries from "@/components/home/Industries";
 import Services from "@/components/home/Services";
 import Footer from "@/components/common/Footer";
 import Trust from "@/components/home/Trust";
@@ -17,7 +16,9 @@ import {
   getImagePath,
   robotsTxt,
 } from "@/lib/myFun";
+
 import FooterService from "@/components/common/FooterService";
+import Categories from "@/components/home/Categories";
 
 export default function Home({
   logo,
@@ -81,7 +82,7 @@ export default function Home({
         data={banner?.value}
         image={`${imagePath}/${banner?.file_name}`}
       />
-      <Industries />
+      <Categories categories={categories} imagePath={imagePath} />
       <Services />
       <Trust />
       <Coverage />

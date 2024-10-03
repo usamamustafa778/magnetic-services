@@ -46,19 +46,21 @@ const CategoryLinks = ({ categories, category, getLinkClass }) => (
   <div className="flex flex-col">
     <p className="font-bold mb-5">Categories</p>
     {categories?.map((item, index) => {
-      const categoryPath = `/${item.toLowerCase().replace(/\s+/g, "-")}`;
+      const categoryPath = `/${item?.title
+        ?.toLowerCase()
+        .replace(/\s+/g, "-")}`;
       return (
         <Link
           key={index}
-          title={item}
+          title={item?.title}
           href={categoryPath}
           className={cn(
             "uppercase text-sm mb-2 hover:text-nav w-fit transition-all",
-            category === item && "border-b-2 border-purple-500",
+            category === item?.title && "border-b-2 border-purple-500",
             getLinkClass(categoryPath)
           )}
         >
-          {item}
+          {item?.title}
         </Link>
       );
     })}
