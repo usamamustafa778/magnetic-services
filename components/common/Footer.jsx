@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 const formatCategoryPath = (title) =>
   `/${title?.toLowerCase().replace(/\s+/g, "-")}`;
 
-const QuickLinks = memo(() => (
+const QuickLinks = () => (
   <nav aria-label="Quick Links">
     <p className="font-bold mb-5">Quick Links</p>
     <ul className="space-y-2">
@@ -27,9 +27,9 @@ const QuickLinks = memo(() => (
       ))}
     </ul>
   </nav>
-));
+);
 
-const CategoryLinks = memo(({ categories }) => (
+const CategoryLinks = ({ categories }) => (
   <nav aria-label="Categories" className="flex flex-col">
     <p className="font-bold mb-5">Categories</p>
     <div className="grid grid-cols-3 gap-x-20">
@@ -45,7 +45,7 @@ const CategoryLinks = memo(({ categories }) => (
       ))}
     </div>
   </nav>
-));
+);
 
 // Footer component
 export default function Footer({ categories }) {
