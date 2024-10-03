@@ -10,7 +10,7 @@ export default function Categories({ categories, imagePath }) {
         <h2 className="text-4xl font-bold text-center mb-5">
           Your Trusted Service Partner
         </h2>
-        <div className="w-full grid grid-cols-6 gap-5">
+        <div className="w-full grid grid-cols-5 gap-5">
           {categories?.map((item, index) => (
             <div
               key={index}
@@ -24,7 +24,9 @@ export default function Categories({ categories, imagePath }) {
                 alt={item.title || "Image"}
                 className="w-14 h-14 mt-3"
               />
-              <h3 className="font-semibold mt-4">{item.title}</h3>
+              <h3 className="font-medium text-lg mt-4 capitalize">
+                {item.title}
+              </h3>
             </div>
           ))}
         </div>

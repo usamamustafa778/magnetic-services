@@ -19,6 +19,7 @@ import MostPopular from "@/components/MostPopular";
 import JsonLd from "@/components/json/JsonLd";
 import FooterService from "@/components/common/FooterService";
 import MustRead from "@/components/common/MustRead";
+import Blog from "@/components/Blog";
 
 export default function OurBlogs({
   logo,
@@ -31,72 +32,6 @@ export default function OurBlogs({
   tag_list,
   layout,
 }) {
-  console.log("layout", about_me);
-
-  const page = layout?.find((page) => page.page === "our blog");
-  const renderBlogList = () => {
-    return (
-      <div className="grid grid-cols-2 gap-5 md:gap-10">
-        <div className="flex flex-col gap-10">
-          {blog_list
-            ?.slice(0, blog_list?.length > 7 ? 4 : 2)
-            .map((item, index) => (
-              <BlogCard
-                key={index}
-                index={index}
-                title={item.title}
-                author={item.author}
-                published_at={item.published_at}
-                tagline={item.tagline}
-                content={item.articleContent}
-                image={
-                  item.image ? `${imagePath}/${item.image}` : "/no-image.png"
-                }
-                href={`/${item?.article_category?.name
-                  ?.toLowerCase()
-                  ?.replaceAll(" ", "-")}/${item?.title
-                  ?.replaceAll(" ", "-")
-                  ?.toLowerCase()}`}
-                category={item?.article_category?.name}
-                imageHeight="h-72 md:h-[420px]"
-                imageTitle={item.imageTitle || item.title || "Blog Image Title"}
-                altImage={item.altImage || item.tagline || "Article Thumbnail"}
-              />
-            ))}
-        </div>
-        <div className="flex flex-col gap-10">
-          {blog_list
-            ?.slice(
-              blog_list?.length > 7 ? 5 : 2,
-              blog_list?.length > 7 ? 9 : 4
-            )
-            .map((item, index) => (
-              <BlogCard
-                key={index}
-                index={index}
-                title={item.title}
-                author={item.author}
-                published_at={item.published_at}
-                tagline={item.tagline}
-                content={item.articleContent}
-                image={
-                  item.image ? `${imagePath}/${item.image}` : "/no-image.png"
-                }
-                href={`/${item?.article_category?.name
-                  ?.toLowerCase()
-                  ?.replaceAll(" ", "-")}/${item?.title
-                  ?.replaceAll(" ", "-")
-                  ?.toLowerCase()}`}
-                category={item?.article_category?.name}
-                imageHeight={index === 0 ? "h-40" : "h-72 md:h-[410px]"}
-                imageTitle={item.imageTitle || item.title || "Blog Image Title"}
-                altImage={item.altImage || item.tagline || "Article Thumbnail"}
-              />
-            ))}
-        </div>
-      </div>
-    );
-  };
   return (
     <>
       <Head>
@@ -124,52 +59,43 @@ export default function OurBlogs({
 
       <Banner title={"Our Blogs"} />
       <MostPopular blog_list={blog_list} imagePath={imagePath} />
-      <FullContainer className="pt-12">
-        <Container>
-          <div className="grid grid-cols-1 md:grid-cols-home gap-12 w-full">
-            <div className="flex flex-col gap-12 w-full">
-              {blog_list?.map(
-                (item, index) =>
-                  item.isFeatured && (
-                    <BlogCard
-                      key={index}
-                      index={index}
-                      title={item.title}
-                      author={item.author}
-                      published_at={item.published_at}
-                      tagline={item.tagline}
-                      content={item.articleContent}
-                      image={
-                        item.image
-                          ? `${imagePath}/${item.image}`
-                          : "/no-image.png"
-                      }
-                      href={`/${item?.article_category?.name
-                        ?.toLowerCase()
-                        ?.replaceAll(" ", "-")}/${item?.title
-                        ?.replaceAll(" ", "-")
-                        ?.toLowerCase()}`}
-                      category={item?.article_category?.name}
-                      imageHeight="h-72 md:h-[420px]"
-                      imageTitle={
-                        item.imageTitle || item.title || "Blog Image Title"
-                      }
-                      altImage={
-                        item.altImage || item.tagline || "Article Thumbnail"
-                      }
-                    />
-                  )
-              )}
-              {renderBlogList(blog_list)}
+      <FullContainer>
+        <Container className="py-16">
+          <div className="grid grid-cols-1 md:grid-cols-home gap-12 lg:gap-14 w-full">
+            <div className="flex flex-col gap-20">
+              {blog_list?.map((item, index) => (
+                <Blog
+                  key={index}
+                  index={index}
+                  title={item.title}
+                  author={item.author}
+                  published_at={item.published_at}
+                  tagline={item.tagline}
+                  content={item.articleContent}
+                  image={
+                    item.image ? `${imagePath}/${item.image}` : "/no-image.png"
+                  }
+                  href={`/${item?.article_category?.name
+                    ?.toLowerCase()
+                    ?.replaceAll(" ", "-")}/${item?.title
+                    ?.replaceAll(" ", "-")
+                    ?.toLowerCase()}`}
+                  category={item?.article_category?.name}
+                  imageHeight="h-72 md:h-[420px]"
+                  imageTitle={
+                    item.imageTitle || item.title || "Blog Image Title"
+                  }
+                  altImage={
+                    item.altImage || item.tagline || "Article Thumbnail"
+                  }
+                />
+              ))}
             </div>
             <Rightbar
               about_me={about_me}
               imagePath={imagePath}
               categories={categories}
               contact_details={contact_details}
-              tag_list={tag_list}
-              widgets={page?.widgets}
-              blog_list={blog_list}
             />
           </div>
         </Container>

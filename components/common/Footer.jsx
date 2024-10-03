@@ -1,17 +1,13 @@
-import React from "react";
+import React, { memo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { cn } from "@/lib/utils"; // Assuming cn is a utility function for classNames
 
-// Utility function to get active link class
-const getLinkClass = (routerPath, path) => {
-  return routerPath === path ? "text-nav" : "text-black hover:text-nav";
-};
+const formatCategoryPath = (title) =>
+  `/${title?.toLowerCase().replace(/\s+/g, "-")}`;
 
-// Component for rendering quick links
-const QuickLinks = ({ getLinkClass }) => (
-  <div>
+const QuickLinks = memo(() => (
+  <nav aria-label="Quick Links">
     <p className="font-bold mb-5">Quick Links</p>
     <ul className="space-y-2">
       {[
@@ -22,59 +18,43 @@ const QuickLinks = ({ getLinkClass }) => (
         { title: "Privacy & Policy", href: "/privacy-policy" },
         { title: "Terms & Conditions", href: "/terms-and-conditions" },
         { title: "Sitemap", href: "/sitemap.xml", legacy: true },
-      ].map(({ title, href, legacy }, index) => (
+      ].map(({ title, href }, index) => (
         <li key={index}>
-          <Link
-            title={title}
-            href={href}
-            className={cn(
-              getLinkClass(href),
-              "uppercase text-sm hover:border-b w-fit transition-all"
-            )}
-            {...(legacy && { legacyBehavior: true })}
-          >
+          <Link title={title} href={href} className="capitalize">
             {title}
           </Link>
         </li>
       ))}
     </ul>
-  </div>
-);
+  </nav>
+));
 
-// Component for rendering category links
-const CategoryLinks = ({ categories, category, getLinkClass }) => (
-  <div className="flex flex-col">
+const CategoryLinks = memo(({ categories }) => (
+  <nav aria-label="Categories" className="flex flex-col">
     <p className="font-bold mb-5">Categories</p>
-    {categories?.map((item, index) => {
-      const categoryPath = `/${item?.title
-        ?.toLowerCase()
-        .replace(/\s+/g, "-")}`;
-      return (
+    <div className="grid grid-cols-3 gap-x-20">
+      {categories?.map((item, index) => (
         <Link
           key={index}
           title={item?.title}
-          href={categoryPath}
-          className={cn(
-            "uppercase text-sm mb-2 hover:text-nav w-fit transition-all",
-            category === item?.title && "border-b-2 border-purple-500",
-            getLinkClass(categoryPath)
-          )}
+          href={formatCategoryPath(item?.title)}
+          className="capitalize"
         >
           {item?.title}
         </Link>
-      );
-    })}
-  </div>
-);
+      ))}
+    </div>
+  </nav>
+));
 
-export default function Footer({ categories, category }) {
-  const router = useRouter();
-  const currentPath = router.pathname;
+// Footer component
+export default function Footer({ categories }) {
+  const { pathname: currentPath } = useRouter();
 
   return (
     <footer className="bg-white text-black py-10">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 text-center lg:text-left">
+        <div className="grid grid-cols-1 lg:grid-cols-footer gap-10 text-center lg:text-left">
           {/* Logo Section */}
           <div className="flex justify-center lg:justify-start items-center">
             <Link href="/" title="Logo">
@@ -88,16 +68,10 @@ export default function Footer({ categories, category }) {
           </div>
 
           {/* Quick Links Section */}
-          <QuickLinks
-            getLinkClass={(path) => getLinkClass(currentPath, path)}
-          />
+          <QuickLinks />
 
           {/* Categories Section */}
-          <CategoryLinks
-            categories={categories}
-            category={category}
-            getLinkClass={(path) => getLinkClass(currentPath, path)}
-          />
+          <CategoryLinks categories={categories} />
         </div>
 
         {/* Bottom Section */}

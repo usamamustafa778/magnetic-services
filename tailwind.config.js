@@ -20,6 +20,7 @@ module.exports = {
         navbar: "2.4fr 1fr",
         form: "0.5fr 1fr",
         banner: "1fr 0.4fr",
+        footer: "0.5fr 0.5fr 1fr",
       },
       keyframes: {
         "accordion-down": {
